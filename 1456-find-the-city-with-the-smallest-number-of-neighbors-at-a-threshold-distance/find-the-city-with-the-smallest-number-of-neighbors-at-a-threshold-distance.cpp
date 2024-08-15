@@ -1,8 +1,15 @@
+struct comp {
+    bool operator()(pair<int, int> a, pair<int, int> b) {
+        return a.first > b.first;
+    }
+};
+
 class Solution {
+
 public:
 
     int reachCity(int n, unordered_map<int, unordered_map<int, int>>& m, int city, int limit) {
-        priority_queue<pair<int,int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+        priority_queue<pair<int,int>, vector<pair<int, int>>, comp> q;
         vector<bool> v(n, false);
         int ans = 0;
         q.push({0, city});
