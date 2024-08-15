@@ -1,13 +1,6 @@
 class Solution {
 public:
 
-    // struct cmp {
-    //     bool operator(pair<int,int>& a, pair<int,int>& b) {
-    //         return a.first < b.first;
-    //     }
-    // }
-
-
     int reachCity(int n, unordered_map<int, unordered_map<int, int>>& m, int city, int limit) {
         priority_queue<pair<int,int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
         vector<bool> v(n, false);
@@ -18,26 +11,17 @@ public:
             pair<int,int> nextCity = q.top();
             q.pop();
 
-            if(v[nextCity.second] || nextCity.first > limit) {
+            if(v[nextCity.second]) {
                 continue;
             }
 
             v[nextCity.second] = true;
             if(nextCity.second != city && nextCity.first<= limit) ans++;
 
-
-            // if(city == 4) {
-            //         cout << nextCity.first << " " << nextCity.second << endl;
-            //     }
-
             for(auto mm : m[nextCity.second]) {
 
                 if (mm.second+nextCity.first <= limit) {
                     q.push({mm.second+nextCity.first, mm.first});
-                    // if (!v[mm.first]) {
-                    //     v[mm.first] = true;
-                    //     ans++;
-                    // }
                 }
             }
         }
