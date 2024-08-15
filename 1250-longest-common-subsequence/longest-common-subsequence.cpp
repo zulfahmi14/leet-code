@@ -12,15 +12,12 @@ public:
         if (idx1 >= text1.length() || idx2 >= text2.length()) return 0;
         if (v[idx1][idx2] != -1) return v[idx1][idx2];
 
-        int ans;
         if (text1[idx1] == text2[idx2]) {
-            ans = 1+dp(text1, text2, v, idx1+1, idx2+1);
+            v[idx1][idx2] = 1+dp(text1, text2, v, idx1+1, idx2+1);
         } else {
-            ans = max(dp(text1, text2, v, idx1+1, idx2), dp(text1, text2, v, idx1, idx2+1));
+            v[idx1][idx2] = max(dp(text1, text2, v, idx1+1, idx2), dp(text1, text2, v, idx1, idx2+1));
         }
 
-        v[idx1][idx2] = ans;
-
-        return ans;
+        return v[idx1][idx2];
     }
 };
