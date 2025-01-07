@@ -12,6 +12,6 @@ public:
             }
         }
 
-        return nums.size();
+        return i;
     }
 };
