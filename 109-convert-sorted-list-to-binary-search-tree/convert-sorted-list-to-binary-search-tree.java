@@ -25,23 +25,32 @@
  */
 class Solution {
 
-  private static TreeNode createBST(List<ListNode> list, int l, int r) {
-    if (l > r) return null;
-    int mid = (l + r) / 2;
+  private static TreeNode createBST(ListNode listNode, int max) {
+    if (listNode == null || max <= 0) return null;
 
-    TreeNode head = new TreeNode(list.get(mid).val);
-    head.left = createBST(list, l, mid - 1);
-    head.right = createBST(list, mid + 1, r);
+    int mid = max/2; //
+    int tempMid = mid;
+    ListNode temp = listNode;
+
+    while(mid > 0) {
+      temp = temp.next;
+      mid--;
+    }
+
+    TreeNode head = new TreeNode(temp.val);
+    head.left = createBST(listNode, tempMid);
+    head.right = createBST(temp.next, max%2 == 0 ? tempMid-1: tempMid);
     return head;
   }
 
     public TreeNode sortedListToBST(ListNode head) {
-        List<ListNode> list = new ArrayList<>();
-    while(head != null) {
-      list.add(head);
-      head = head.next;
+    int max = 0;
+    ListNode temp = head;
+    while(temp != null) {
+      temp = temp.next;
+      max++;
     }
 
-    return createBST(list, 0, list.size() - 1);
+    return createBST(head, max);
     }
 }
